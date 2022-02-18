@@ -22,11 +22,23 @@ class Tracks extends Component {
             } else {
                 audio.play();
                 this.setState({ audio, playingPreviewUrl: previewUrl });
-            }
-
-        
+            }        
         } 
+    }
 
+    trackIcon = track => {
+        if (@track.preview_url) {
+            return <span>N/A</span>;
+        }
+
+        if (
+            this.state.playing &&
+            this.state.playingPreviewUrl === track.preview_url
+        ) {
+            return <span>| |</span>
+        }
+
+        return <span>&#9654;</span>
     }
 
     render() {
@@ -40,9 +52,18 @@ class Tracks extends Component {
                         
                         return (
                             // bad practice to use parentheses to pass in the preview_url cos it can lead to loops of setting state and rendering in our component
-                            <div key={id} onClick={this.playAudio(preview_url)}>
-                                <img src={album.images[0].url} alt='track-image' />
-                                <p>{name}</p>
+                            <div 
+                                key={id} 
+                                onClick={this.playAudio(preview_url)} 
+                                className='track'
+                            >
+                                <img 
+                                    src={album.images[0].url} 
+                                    alt='track-image' 
+                                    className='track-image'
+                                />
+                                <p className='track-text'>{name}</p>
+                                <p className='track-icon'>{this.trackIcon(track)}</p>
                             </div> 
                         )
                     })
