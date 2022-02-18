@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Artist from './Artist';
 
 // it is a global constant hence it has to be screen cased
 const API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
@@ -48,6 +49,7 @@ class App extends Component {
                     placeholder='Search for an Artist'
                 />
                 <button onClick={this.searchArtist}>Search</button>
+                <Artist artist={this.state.artist} />
             </div>
         );
     }
